@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9d9d9;
+  color: #231F20;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #231F20;
+  border-radius: 5px;
+}
+
+.container-form {
+  justify-content: center;
+  align-items: center;
+  margin:30px;
+  display: flex;
+  flex-direction: column;
+}
+
+input::placeholder {
+  color: #323232;
+  background-color: white;
+}
+
+input, label, textarea {
+  margin-bottom:10px;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #231F20;
+}
+
+input {
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.general-button {
+  background-color: #b3afaf;
+}
+
+.list-container {
+  display: flex;
+  justify-content: space-between;
+}
+
