@@ -47,3 +47,15 @@ input {
   justify-content: space-between;
 }
 
+.done {
+  text-decoration: line-through;
+}
+
+.home-buttons {
+  margin-top: 30px;
+}
+
+.home-buttons button {
+  margin-right: 5px;
+}
+

@@ -1,19 +1,24 @@
 import { useState } from "react";
 import Button from "./Button";
-import { TODOData } from "../models/TODOData";
-import { getLocalStorageItem, setLocalStorageItem } from "../services/localStorageService";
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState, addDispatch } from '../store/store';
+import { TODOData, addTODO } from "../store/features/TODOSlice";
 
 const initialFormData = {
   id: 0,
   title: '',
   description: '',
-  creationTime: new Date()
+  creationTime: 0,
+  completed: false
 };
 
 export default function TODOForm() {
     const [formData, setFormData] = useState<TODOData>(initialFormData);
     const [count, setCount] = useState(1);
     const [postError, setPostError] = useState('');
+    
+    const todos = useSelector((state: RootState) => state.todos)
+    const dispatch: addDispatch  = useDispatch()
 
     const handleChange = (e: any) => {
         const { name, value, type, checked } = e.target;
@@ -26,10 +31,15 @@ export default function TODOForm() {
     const handleSubmit = async(e: any) => {
         e.preventDefault();
         formData.id = count;
-        const savedFormData = getLocalStorageItem();
-        const updateItems = [...savedFormData, formData];
-        setLocalStorageItem({todoList:updateItems});
-        setCount(count + 1);
+
+        const newTODO: TODOData = {
+          id: formData.id,
+          title: formData.title,
+          description: formData.description,
+          creationTime: new Date().getTime(),
+          completed: false
+        };
+        dispatch(addTODO(newTODO));
         setPostError('Add TODO succesfully');
       };
 
@@ -60,7 +70,7 @@ export default function TODOForm() {
                 placeholder="Creation Time" 
                 name="creationTime" 
                 onChange={handleChange}
-                value={formData.creationTime.toISOString().substring(0,10)}
+                value={new Date().toISOString().substring(0,10)}
                 disabled/>
 
                 <Button text="Save"/>

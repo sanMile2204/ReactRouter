@@ -1,14 +1,15 @@
 import { useParams } from "react-router-dom";
 import Detail from "../components/Detail";
 import { useEffect, useState } from "react";
-import { getLocalStorageItem } from "../services/localStorageService";
-import { TODOData } from "../models/TODOData";
+import { TODOData } from "../store/features/TODOSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const initialFormData = {
     id: 0,
     title: '',
     description: '',
-    creationTime: new Date()
+    creationTime: 0
   };
 
   const buttonConfig = {
@@ -20,10 +21,13 @@ export default function TODODetail() {
     const { id } = useParams();
     const [todoItem, setTodoItem] = useState<TODOData>(initialFormData);
 
+    const test: TODOData[] = useSelector(
+      (state: RootState) => state.todos.todos
+    );
+
 
     useEffect(() => {
-        const savedItems = getLocalStorageItem();
-        const element = savedItems.find(x => x.id === Number(id));
+        const element = test.find(x => x.id === Number(id));
         setTodoItem(element ? element : initialFormData);
       }, []);
 

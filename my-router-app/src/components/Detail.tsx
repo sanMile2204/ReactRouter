@@ -1,4 +1,5 @@
-import { DetailProps } from "../models/TODOData";
+
+import { DetailProps } from "../store/features/TODOSlice";
 import Button from "./Button";
 
 const Detail: React.FC<DetailProps> = ({todoInfo, button}) => {
